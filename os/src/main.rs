@@ -14,12 +14,10 @@
 #![feature(panic_info_message)]
 
 use core::arch::global_asm;
-use log::*;
 
 #[macro_use]
 mod console;
 mod lang_items;
-mod logging;
 mod sbi;
 
 global_asm!(include_str!("entry.asm"));
@@ -49,7 +47,6 @@ pub fn rust_main() -> ! {
         fn boot_stack_top(); // stack top
     }
     clear_bss();
-    logging::init();
     println!("[kernel] Hello, world!");
     trace!(
         "[kernel] .text [{:#x}, {:#x})",
